@@ -1,25 +1,25 @@
-const db = require('../db/connect');
+const database   = require('../db/connect');
+const Item       = require('../models/Item');
 
-// Conventional RESTful routes
-
-// Needs nexts
 function searchRoute(req, res) {
   // queryString search terms
-  const searchTerm = req.query.searchTerm;
-  const lat        = req.query.lat;
-  const lng        = req.query.lng;
+  const { searchTerm, lat, lng } = req.query;
 
-  const sql = `SELECT * FROM items 
-               WHERE item_name LIKE '%${searchTerm}%' AND 
-               lat >= 50 AND lat <= 51.5 AND 
-               lng >= -4 AND lng <= -2
-               LIMIT 20;`;
+  // Consider sorting array for optimisation benefit
+  const sqlGetItems = Item.getItems(searchTerm);
+          
+  database.all(sqlGetItems, (err, items) => {
+    
+    items.map((item) => {
+      item['distance']       = Item.euclideanDistance(lat, item['lat'], lng, item['lng']);
+      item['textsimilarity'] = Item.textSimilarity(searchTerm, item['item_name']);
+      // Need to normalise the factors 
+      // Function to add  in output if Top 20
+    });
 
-  db.all(sql, function(err,rows) {
     // include header and status code
-    return res.json(rows);
+    return res.json(items);
   });
-
 }
 
 module.exports = { search: searchRoute };

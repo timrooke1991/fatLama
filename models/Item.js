@@ -1,30 +1,21 @@
-const database = require('../db/connect');
+const levenshtein = require('js-levenshtein');
 
+function getItems() {
+  const sql = `SELECT * FROM items`;
 
-// function constructSearchStatement(searchTerm) {
-//   const sql = `SELECT * FROM items 
-//                WHERE item_name LIKE '%${searchTerm}%' AND 
-//                lat >= 50 AND lat <= 51.5 AND 
-//                lng >= -4 AND lng <= -2
-//                LIMIT 20;`;
-    
-//   return sql;
-// }
+  return sql;
+}
 
-const sql = `SELECT * FROM items 
-               WHERE item_name LIKE '%canon%' AND 
-               lat >= 50 AND lat <= 51.5 AND 
-               lng >= -4 AND lng <= -2
-               LIMIT 20;`;
+function euclideanDistance(userLat, itemLat, userLng, itemLng) {
+  return Math.hypot(userLat - itemLat, userLng - itemLng);
+}
 
-database.all(sql, function(err, rows) {
-  console.log('function triggered');
-  
-  rows.forEach(function(row) {
-    console.log(row.item_name, row.lat);
-  });
-  console.log('complete');
-  
-});
+function textSimilarity(userText, itemName) {
+  return levenshtein(userText, itemName);
+}
 
-module.exports = database;
+module.exports = {
+  getItems,
+  euclideanDistance,
+  textSimilarity
+};
