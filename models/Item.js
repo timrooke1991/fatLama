@@ -24,7 +24,7 @@ function calculateTextSimilarity(userText, itemName) {
 
 function calculateRelevance(distance, similarity, factor) {
   
-  const weight = 3 || factor;
+  const weight = 2 || factor;
 
   // Inverse distance; required to make it comparable to text
   const normalisedDistance = 1 - distance;

@@ -17,7 +17,7 @@ function searchRoute(req, res) {
     items = items.sort(Item.compareRelevance);
 
     // Take the most relevant 20 items
-    return res.json(items.splice(0, 20));
+    return res.status(200).json(items.splice(0, 20));
   });
 }
 
