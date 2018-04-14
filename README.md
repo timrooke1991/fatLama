@@ -23,4 +23,4 @@
 * Run `node index.js`.
 * Open Insomnia or Postman.
 * Make a GET request to the API with relevant query string parameters.
-* Foe example, [http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892](http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892)
+* For example, [http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892](http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892)
