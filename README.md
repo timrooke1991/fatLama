@@ -1,28 +1,26 @@
 # Backend Challenge
-## Introduction
-Fat Lama relies heavily on our search in order for users to be able to find the items they need. The main two factors in the search are:
-- **Text match**: the user types a word or phrase that they want to find, and the search returns items that match this.
-- **Location**: the user indicates their location (through geolocation or through typing in the location search box) and the search returns items near the user
 
-On the production web & mobile app there are other factors that come into play such as lender rating, response time, categories, time since listing, and more. For this challenge though, we want you to focus only on the two main factors given above.
+## Installation and setup
 
-## The Challenge
-We want you to build a `GET /search` endpoint that will return the most appropriate 20 items given `searchTerm`, `lat` (latitude) and `lng` (longitude). e.g. `/search?searchTerm=camera&lat=51.948&lng=0.172943`. It is up to you to decide how to weight the two factors to return the most relevant results. We have provided you with a sqlite database containing just under 2000 items with the relevant fields.
+* Download files and extract files.
+* Navigate to director in the command line.
+* `yarn` or `npm i` to install dependencies.
 
-When you are finished, write up a short summary of why you made the choices you did in terms of technology and design. This should be no more than 500 words.
+## Testing with Mocha
 
-## Things to think about:
-- Think about points of failure and how your endpoint will perform under load.
-- Language/frameworks: up to you, but please explain your choices in the summary
-- Testing: use whatever tools you prefer to test your code appropriately
-- Try to implement appropriate [separation of concerns](https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/) & modular code
-- Think hard about naming of functions and variables. Your code must be readable
-- Code style & file structure is up to you, but make sure it is consistent and easy to understand
+* Run `mocha` from the root of the project to run tests.
+* Test located at `./test/api/item_test.js`
 
-## Checklist for Challenge
-- [ ] Duplicate this repo (please do not fork it, see [instructions](https://help.github.com/articles/duplicating-a-repository/)). Bitbucket offers free private repos if you don't want to use a public one.
-- [ ] Build API endpoint for Fat Lama search with according to above specifications
-- [ ] Ensure all code is sufficiently tested
-- [ ] Write brief summary on the approach you took and the tools you used (max 500 words)
-- [ ] Include instructions on how to build/ run your solution
-- [ ] Send us a link to your new repo.
+## Running in the browser
+
+* Once dependancies have been installed.
+* Run `node index.js`
+* Go to `http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892`[http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892]
+
+## Testing in Insomnia or Postman
+
+* Once dependancies have been installed.
+* Run `node index.js`.
+* Open Insomnia or Postman.
+* Make a GET request to the API with relevant query string parameters.
+* Foe example, `http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892`[http://localhost:3000/search?searchTerm=Canon&lat=55.8610725&lng=-4.22567892]
