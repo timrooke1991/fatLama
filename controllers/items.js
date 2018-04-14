@@ -1,24 +1,23 @@
 const database   = require('../db/connect');
-const Item       = require('../models/Item');
+const Item       = require('../models/item');
 
 function searchRoute(req, res) {
-  // queryString search terms
   const { searchTerm, lat, lng } = req.query;
 
-  // Consider sorting array for optimisation benefit
   const sqlGetItems = Item.getItems(searchTerm);
           
   database.all(sqlGetItems, (err, items) => {
-    
     items.map((item) => {
-      item['distance']       = Item.euclideanDistance(lat, item['lat'], lng, item['lng']);
-      item['textsimilarity'] = Item.textSimilarity(searchTerm, item['item_name']);
-      // Need to normalise the factors 
-      // Function to add  in output if Top 20
+      const itemDistance   = Item.calculateDistance(lat, item['lat'], lng, item['lng']);
+      const itemSimilarity = Item.calculateTextSimilarity(searchTerm, item['item_name']);
+      item['relevance']    = Item.calculateRelevance(itemDistance, itemSimilarity);
     });
 
-    // include header and status code
-    return res.json(items);
+    // sort from most relevant to least relevant
+    items = items.sort(Item.compareRelevance);
+
+    // Take the most relevant 20 items
+    return res.json(items.splice(0, 20));
   });
 }
 
